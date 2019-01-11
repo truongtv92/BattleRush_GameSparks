@@ -24,10 +24,23 @@ if(battleResult=="0:0"||battleResult=="1:1"||battleResult=="2:2"){ // hoa
     var draw2 = drawData.visitorDraw;
     homeAssest.draws = drawData.homeDraw;
     visitorAssest.draws = drawData.visitorDraw;
+    var crown = battleResult.split(':');
+     homeAssest.crowns +=crown[0];
+     visitorAssest.crowns += crown[0];
 }
 else{ // co thang co thua
+    
+    
     winData = response.battleWin;
     loseData =response.battleLose;
+    var crown = battleResult.split(':');
+    var loserCrown = 0;
+    if(crown[0]==winData.crowns){
+            loserCrown = crown[1];
+    }
+    else{
+        loserCrown = crown[0];
+    }
     if(winData.userId ==APIHomeID ){ // home is winner
         homeAssest.coins+=winData.coins;
         homeAssest.exp +=winData.exp;
@@ -36,9 +49,15 @@ else{ // co thang co thua
         homeAssest.crowns += winData.crowns;
         homeAssest.threeCrownWins += winData.threeCrownWins;
         homeAssest.wins += winData.wins;
+        if(winData.chest!=null){
+            var homeChest =  homeUser.getScriptData("chests");
+            homeChest.push(winData.chest);
+            homeUser.setScriptData("chests",homeChest);
+        }
         
         visitorAssest.loses +=loseData.loses;
         visitorAssest.trophies -=loseData.trophies;
+        visitorAssest.crowns +=loserCrown;
         if(visitorAssest.trophies<0){
             visitorAssest.trophies =0;
         }
@@ -51,9 +70,14 @@ else{ // co thang co thua
         visitorAssest.crowns += winData.crowns;
         visitorAssest.threeCrownWins += winData.threeCrownWins;
         visitorAssest.wins += winData.wins;
-        
+        if(winData.chest!=null){
+            var visitorChest =  homeUser.getScriptData("chests");
+            visitorChest.push(winData.chest);
+            visitorUser.setScriptData("chests",visitorChest);
+        }
         homeAssest.loses +=loseData.loses;
         homeAssest.trophies -=loseData.trophies;
+        homeAssest.crowns +=loserCrown;
         if(homeAssest.trophies<0){
             homeAssest.trophies =0;
         }

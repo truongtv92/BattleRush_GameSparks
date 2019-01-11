@@ -7,7 +7,14 @@ var data = Spark.getHttp(url).get();
 var response = data.getResponseJson();
 Spark.setScriptData("chest", response);
 require("UserAssestHelper");
+require("ChestHelper");
+AddChest(response.chest);
 AddmoreEXP(response.exp);
-IncreaseCrown(crown);
+if(GetAllVictoryChest().length>0){
+    IncreaseCrown(crown);
+}
+else{
+    IncreaseCrown(-100);
+}
 IncreaseCurrency(response.coins,0);
 UpdateMaxMapLevel(mapID);

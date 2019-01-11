@@ -5,12 +5,12 @@ if(Spark.getData().newPlayer === true) {
 else{
     GetUser();
 };
-var userAsset = Spark.getPlayer().getScriptData("userAssets")
-var currentTrophies = userAsset.trophies;
+//var userAsset = Spark.getPlayer().getScriptData("userAssets")
+//var currentTrophies = userAsset.trophies;
 
 requireOnce("ArenaHelper");
 var response = GetAllArena();
- Spark.setScriptData("arena", response);
+Spark.setScriptData("arena", response);
 /*   doan nay la tinh toan arena roi tra ve chinh xac arena hien co
 if(response.length>1){
     for(var i =0;i<response.length-1;i++){

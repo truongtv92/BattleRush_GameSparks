@@ -50,6 +50,12 @@ function ResponseUserData(response){
         Spark.setScriptData("userAssets", userAssets);
         Spark.setScriptData("battleDeck", battleDeck);
         Spark.setScriptData("chests", chest);
+        if(Spark.getPlayer().getDisplayName()==null||Spark.getPlayer().getDisplayName()=="" && user.displayName!=""){
+            var request = new SparkRequests.ChangeUserDetailsRequest();
+            request.displayName =user.displayName;
+            var response = request.Send();
+
+        }
         
     }
     else{

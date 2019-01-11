@@ -29,8 +29,24 @@ if(status=="OPEN"){
         UpdateCard(cards[i].id, cards[i].number);
     }
     var chest = GetChestByID(chestid);
+    
      Spark.setScriptData("chest", chest);
-     RemoveChest(chestid);
+     //check chest crown thi tru crown, new khong con chestcrown thi ve 0
+     if(chest!=null){
+        if(chest.chestLocation=="CHEST_CROWN"){
+         UpdateTimeCrown(data.timeCrownDailyActive);
+         if(data.chests==2){
+             IncreaseCrown(-10);
+         }
+         else if(data.chests==1){
+             IncreaseCrown(-100);
+         }
+        }
+         
+     }
+      Spark.setScriptData("data", data);
+      
+      RemoveChest(chestid);
 }
 else if(status=="WAIT"){
     Spark.setScriptData("chest", data);

@@ -5,6 +5,7 @@ function GetChestByID(id){
     for(var i =0;i<chests.length;i++){
         if(chests[i].id==id) return chests[i];
     }
+    return null;
 }
 function UpdateChest(chest){
     var chests =Spark.getPlayer().getScriptData("chests");
@@ -26,4 +27,25 @@ function RemoveChest(id){
             return;
         }
     }
+}
+function GetAllChest(){
+    var chests =Spark.getPlayer().getScriptData("chests");
+    return chests;
+}
+function GetAllVictoryChest(){
+    var result = [];
+    var chests =Spark.getPlayer().getScriptData("chests");
+    for(var i =0;i<chests.length;i++){
+        if(chests[i].chestLocation=="CHEST_CROWN"){
+            result.push(chests[i]);
+        }
+    }
+    return result;
+}
+function AddChest(chest){
+    var chests =Spark.getPlayer().getScriptData("chests");
+    if(chest!=null){
+        chests.push(chest);
+    }
+    Spark.getPlayer().setScriptData("chests",chests);
 }

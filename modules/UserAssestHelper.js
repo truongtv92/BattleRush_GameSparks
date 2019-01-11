@@ -45,7 +45,12 @@ function GetUserAsset(){
 function IncreaseCrown(value){
     var userAssets = Spark.getPlayer().getScriptData("userAssets");
     userAssets.crowns += value;
-    if(userAssets.crowns>10) userAssets.crowns = 10;
+    if(userAssets.crowns<0) userAssets.crowns = 0;
+    Spark.getPlayer().setScriptData("userAssets", userAssets);
+}
+function UpdateTimeCrown(value){
+     var userAssets = Spark.getPlayer().getScriptData("userAssets");
+    userAssets.timeCrownDailyActive = value;
     Spark.getPlayer().setScriptData("userAssets", userAssets);
 }
 function SaveUserAssest(){
@@ -59,10 +64,7 @@ function SaveUserAssest(){
         if(response.getResponseCode()!=200){
             Spark.getLog().error(response.getResponseJson());
         }
-        // if(response.getResponseJson().message!="OK"){
-        //     Spark.getLog().error(response.getResponseJson().message);
-        // }
-         
+      // Spark.getLog().error(Spark.getPlayer().getPlayerId());
     }
     
 }
